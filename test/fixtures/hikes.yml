@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  start_lat: 1.5
+  start_lng: 1.5
+  region: MyString
+  description: MyString
+  notes: MyString
+  start_date: 2018-01-02
+  end_date: 2018-01-02
+  num_days: 1.5
+  miles: 1.5
+  elevation_gain: 1.5
+  max_elevation: 1.5
+  coast: false
+  rivers: false
+  lakes: false
+  waterfalls: false
+  old_growth: 1.5
+  fall_foliage: false
+  wildflowers: false
+  medows: false
+  mountain_views: false
+  summits: false
+  established_campsites: false
+  day_hike: false
+  overnight: false
+
+two:
+  name: MyString
+  start_lat: 1.5
+  start_lng: 1.5
+  region: MyString
+  description: MyString
+  notes: MyString
+  start_date: 2018-01-02
+  end_date: 2018-01-02
+  num_days: 1.5
+  miles: 1.5
+  elevation_gain: 1.5
+  max_elevation: 1.5
+  coast: false
+  rivers: false
+  lakes: false
+  waterfalls: false
+  old_growth: 1.5
+  fall_foliage: false
+  wildflowers: false
+  medows: false
+  mountain_views: false
+  summits: false
+  established_campsites: false
+  day_hike: false
+  overnight: false

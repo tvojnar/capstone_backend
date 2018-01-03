@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hike_id: 1
+  trackpoint_number: false
+  lat: 1.5
+  lng: 1.5
+  elevation: 1.5
+
+two:
+  hike_id: 1
+  trackpoint_number: false
+  lat: 1.5
+  lng: 1.5
+  elevation: 1.5
