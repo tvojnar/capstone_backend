@@ -22,6 +22,7 @@ describe HikesController do
       # make the api call
       get hikes_path(min_lat: 47.0, max_lat: 49.0, min_lng: -125.0, max_lng: -120.0)
 
+      must_respond_with :success
       body = JSON.parse(response.body)
       body.must_be_kind_of Array
       body.must_be :empty?
@@ -29,15 +30,16 @@ describe HikesController do
 
     it 'returns a hike' do
       # TODO: figure out why it isn't returning a hike
-      
+
       # create a hike that is within the min/max bounds of the get request
-      hike = Hike.create(name: 'test', start_lat: 46.0, start_lng: -122.0)
+      hike = Hike.create(name: 'test', start_lat: 48.0, start_lng: -122.0)
 
       # make the get request to the index action
       get hikes_path(min_lat: 47.0, max_lat: 49.0, min_lng: -125.0, max_lng: -120.0)
 
       # parse the response
-      # make sure that it includes one hike
+      # make sure that the response includes one hike
+      must_respond_with :success
       body = JSON.parse(response.body)
       binding.pry
       body.length.must_be :>, 0
