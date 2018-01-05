@@ -70,6 +70,66 @@ describe HikesController do
       body.must_be_kind_of Array
       body.must_be :empty?
     end # won't return hike that is outside of the boundaries
-
   end # index
+
+
+  describe 'create' do
+    let(:hike_data) {
+      {
+        name: 'Fake hike',
+        start_lat: 48.6,
+        start_lng: -123,
+        region: 'Central Washington',
+        description: 'A great fake hike',
+      }
+    } # let
+
+    it 'creates a hike' do
+      # make a post request
+      proc {
+        post hikes_path, params: {hike: hike_data}
+      }.must_change 'Hike.count', 1
+
+      # assert that the post request was successful
+      must_respond_with :success
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Hash
+      body.must_include "name"
+      Hike.find(body["id"]).name.must_equal hike_data[:name]
+    end # creates a hike
+
+    it 'wont change the db if data is missing' do
+      # create invalid data to pass as params (missing start_lat)
+      invalid_hike_data = {
+          name: 'Fake hike',
+          start_lng: -123,
+        }
+
+      # make a post request with the invalid data
+      proc {
+        post hikes_path, params: {hike: invalid_hike_data}
+      }.wont_change 'Hike.count'
+
+      # verify that the post request failed because the start_lat was missing
+      must_respond_with :bad_request
+      body = JSON.parse(response.body)
+      body.must_equal "errors" => {"start_lat" => ["can't be blank"] }
+    end # won't change db if data is missing
+
+    it 'wont change the db if name is not unique' do
+
+      # make a post request with hike_data
+      post hikes_path, params: {hike: hike_data}
+
+      # make another post request with hike_data, which won't work because the name is the same
+      proc {
+        post hikes_path, params: {hike: hike_data}
+      }.wont_change 'Hike.count'
+
+      # verify that the post request didn't work because the name was not unique
+      must_respond_with :bad_request
+      body = JSON.parse(response.body)
+      body.must_equal "errors" => {"name" => ["has already been taken"] }
+    end # won't change db if name is not unique
+  end # create
 end

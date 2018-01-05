@@ -27,4 +27,8 @@ class HikesController < ApplicationController
   def search_params
     params.permit(:min_lng, :max_lng, :min_lat, :max_lat)
   end
+
+  def hike_params
+    params.require(:hike).permit(:name, :start_lat, :start_lng, :region, :description, :notes, :start_date, :end_date, :miles, :elevation_gain, :max_elevation, :coast, :rivers, :lakes, :waterfalls, :fall_foliage, :wildflowers, :medows, :mountain_views, :summits, :established_campsites, :day_hike, :overnight, :old_growth)
+  end # hike_params
 end

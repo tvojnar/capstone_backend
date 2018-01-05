@@ -17,7 +17,7 @@ one:
   rivers: false
   lakes: false
   waterfalls: false
-  old_growth: 1.5
+  old_growth: false
   fall_foliage: false
   wildflowers: false
   medows: false
@@ -44,7 +44,7 @@ two:
   rivers: false
   lakes: false
   waterfalls: false
-  old_growth: 1.5
+  old_growth: false
   fall_foliage: false
   wildflowers: false
   medows: false
