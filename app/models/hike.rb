@@ -13,6 +13,7 @@ class Hike < ApplicationRecord
   validates :start_lng,
   presence: true
 
+
   # method to return all the hikes that are within the boundaries of the map displayed on the react front end of the app
   # min_lat, ect are passed in from the front end to the hikes controller
   def self.search(min_lat:, max_lat:, min_lng:, max_lng:)

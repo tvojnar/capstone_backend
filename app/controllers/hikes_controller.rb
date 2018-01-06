@@ -20,6 +20,11 @@ class HikesController < ApplicationController
         json: {errors: hike.errors.messages}, status: :bad_request
       )
     end # if/else
+
+    # NOTE: use to test fake api post before I figure out how to pass the right data
+    # render(
+    #   json: {post: 'worked'}, status: :ok
+    # )
   end # create
 
   private
