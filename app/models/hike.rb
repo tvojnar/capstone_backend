@@ -6,8 +6,7 @@ class Hike < ApplicationRecord
 
   # validations
   validates :name,
-  presence: true,
-  uniqueness: true
+  presence: true
   validates :start_lat,
   presence: true
   validates :start_lng,

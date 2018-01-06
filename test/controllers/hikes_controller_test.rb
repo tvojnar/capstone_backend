@@ -116,20 +116,6 @@ describe HikesController do
       body.must_equal "errors" => {"start_lat" => ["can't be blank"] }
     end # won't change db if data is missing
 
-    it 'wont change the db if name is not unique' do
-
-      # make a post request with hike_data
-      post hikes_path, params: {hike: hike_data}
-
-      # make another post request with hike_data, which won't work because the name is the same
-      proc {
-        post hikes_path, params: {hike: hike_data}
-      }.wont_change 'Hike.count'
-
-      # verify that the post request didn't work because the name was not unique
-      must_respond_with :bad_request
-      body = JSON.parse(response.body)
-      body.must_equal "errors" => {"name" => ["has already been taken"] }
-    end # won't change db if name is not unique
+    
   end # create
 end

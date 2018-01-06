@@ -45,17 +45,6 @@ describe Hike do
       hike_2.errors.messages.must_include :name
     end # requires a name
 
-    it 'requires a unique name' do
-      # create a valid instance of hike
-      hike_1 = Hike.create!(name: 'same name', start_lat: 47.6062, start_lng: 122.3321)
-      # create an invalid instance (which has the same name as hike_1)
-      hike_2 = Hike.new(name: 'same name', start_lat: 47.6062, start_lng: 122.3321)
-
-      # check that it is invalid
-      is_valid = hike_2.valid?
-      is_valid.must_equal false
-      hike_2.errors.messages.must_include :name
-    end # unique name
 
     it 'requires a starting latitude' do
       bad_hike = Hike.new(name: 'test hike', start_lng: 122.3321)
