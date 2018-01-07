@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104190948) do
+ActiveRecord::Schema.define(version: 20180107183351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20180104190948) do
     t.boolean "waterfalls"
     t.boolean "fall_foliage"
     t.boolean "wildflowers"
-    t.boolean "medows"
+    t.boolean "meadows"
     t.boolean "mountain_views"
     t.boolean "summits"
     t.boolean "established_campsites"
