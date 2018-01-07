@@ -54,14 +54,29 @@ describe Hike do
       bad_hike.errors.messages.must_include :start_lat
     end # requites a latitude
 
+    it 'requires a latitude be a number' do
+      bad_hike = Hike.new(name: 'test hike', start_lng: 47.6062, start_lat: 'string')
+
+      is_valid = bad_hike.valid?
+      is_valid.must_equal false
+      bad_hike.errors.messages.must_include :start_lat
+    end # requites a latitude be number
+
     it 'requires a longitude' do
       bad_hike = Hike.new(name: 'test hike', start_lat: 47.6062)
 
       is_valid = bad_hike.valid?
       is_valid.must_equal false
       bad_hike.errors.messages.must_include :start_lng
-
     end # requites a longitude
+
+    it 'requires a longitude be a number' do
+      bad_hike = Hike.new(name: 'test hike', start_lat: 47.6062, start_lng: 'string')
+
+      is_valid = bad_hike.valid?
+      is_valid.must_equal false
+      bad_hike.errors.messages.must_include :start_lng
+    end # requites a longitude be number
 
     it 'can create a valid instance of hike' do
       good_hike = Hike.new(name: 'test hike', start_lat: 47.6062, start_lng: 122.3321)

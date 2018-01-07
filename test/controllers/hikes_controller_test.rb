@@ -113,9 +113,9 @@ describe HikesController do
       # verify that the post request failed because the start_lat was missing
       must_respond_with :bad_request
       body = JSON.parse(response.body)
-      body.must_equal "errors" => {"start_lat" => ["can't be blank"] }
+      body.must_equal "errors" => {"start_lat" => ["can't be blank", "is not a number"] }
     end # won't change db if data is missing
 
-    
+
   end # create
 end

@@ -8,9 +8,11 @@ class Hike < ApplicationRecord
   validates :name,
   presence: true
   validates :start_lat,
-  presence: true
+  presence: true,
+  numericality: true
   validates :start_lng,
-  presence: true
+  presence: true,
+  numericality: true
 
 
   # method to return all the hikes that are within the boundaries of the map displayed on the react front end of the app
