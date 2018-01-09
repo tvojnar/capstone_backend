@@ -1,12 +1,28 @@
 require 'pry-rails'
 
 class HikesController < ApplicationController
+  # protect_from_forgery with: :null_session
+  
   def index
     hikes = Hike.search(search_params.to_h.symbolize_keys)
     # binding.pry
     # The api call is being made and I can see when I do binding.pry that there are hikes being returned, but I don't see those hikes yet in the api response, so I need to figure out why the API isn't sending the hike data to the front end
     render json: hikes
   end # index
+
+  def show
+    hike = Hike.find_by(id: params[:id])
+
+    if hike
+      render(
+        json: hike.as_json(except: [:created_at, :updated_at]), status: :ok
+      )
+    else
+      render(
+        json: {nothing: true}, status: :not_found
+      )
+    end # if/else
+  end # show
 
   def create
     hike = Hike.new(hike_params)

@@ -92,6 +92,40 @@ describe HikesController do
   end # index
 
 
+  describe 'show' do
+    it 'can get a hike' do
+      # ACTION
+      # make a GET request to the show action to get the details for that hike
+      get hike_path(hikes(:one).id)
+
+      # ASSERT
+      # confirm that the GET request was a success
+      must_respond_with :success
+      # confirm that the correct hike's data was retuned
+      body = JSON.parse(response.body)
+      body.must_be_kind_of Hash
+      Hike.find(body["id"]).name.must_equal hikes(:one).name
+      # confirm that all the nessessary data was returned
+      attributes = ['id',
+        'name',
+         'start_lat', 'start_lng', 'region', 'start_date', 'end_date', 'max_elevation', 'elevation_gain', 'description', 'notes', 'lakes', 'coast', 'rivers', 'waterfalls', 'fall_foliage', 'wildflowers', 'meadows', 'old_growth', 'mountain_views', 'summits', 'established_campsites', 'day_hike', 'overnight']
+      attributes.each do |attribute|
+        body.must_include attribute
+      end # .each
+    end # returns a hike
+
+    it 'behaves correctly when the hike does not exist' do
+      invalid_hike_id = Hike.all.last.id + 1
+      get hike_path(invalid_hike_id)
+
+      must_respond_with :not_found
+
+      body = JSON.parse(response.body)
+      body.must_equal "nothing" => true
+    end  # when the hike does not exist
+  end # show
+
+
   describe 'create' do
 
 

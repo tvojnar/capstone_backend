@@ -1,12 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: 'Hike 1'
   start_lat: 1.5
   start_lng: 1.5
-  region: MyString
-  description: MyString
-  notes: MyString
+  region: 'Mount Rainier'
+  description: 'A great hike'
+  notes: 'Some notes about the hike'
   start_date: 2018-01-02
   end_date: 2018-01-02
   num_days: 1.5
@@ -15,7 +15,7 @@ one:
   max_elevation: 1.5
   coast: false
   rivers: false
-  lakes: false
+  lakes: true
   waterfalls: false
   old_growth: false
   fall_foliage: false
