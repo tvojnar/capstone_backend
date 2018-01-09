@@ -2,6 +2,16 @@ require "test_helper"
 require 'pry-rails'
 
 describe HikesController do
+  let(:hike_data) {
+    {
+      name: 'Fake hike',
+      start_lat: 48.6,
+      start_lng: -123,
+      region: 'Central Washington',
+      description: 'A great fake hike',
+    }
+  } # let
+
   describe "index" do
     it 'has a working rout' do
       # make api request, passing in the min and max lat and lng
@@ -74,15 +84,7 @@ describe HikesController do
 
 
   describe 'create' do
-    let(:hike_data) {
-      {
-        name: 'Fake hike',
-        start_lat: 48.6,
-        start_lng: -123,
-        region: 'Central Washington',
-        description: 'A great fake hike',
-      }
-    } # let
+
 
     it 'creates a hike' do
       # make a post request
@@ -115,7 +117,37 @@ describe HikesController do
       body = JSON.parse(response.body)
       body.must_equal "errors" => {"start_lat" => ["can't be blank", "is not a number"] }
     end # won't change db if data is missing
-
-
   end # create
+
+  describe 'update' do
+    let(:new_hike_data) {
+      {
+        name: 'New Name',
+        start_lat: 60,
+        start_lng: -160,
+        region: 'Mount Rainier Area',
+        description: 'A new discription for the hike',
+      }
+    } # let
+
+    it 'will update the attributes of a hike' do
+      # make a post request to create a hike
+      proc {
+        post hikes_path, params: {hike: hike_data}
+      }.must_change 'Hike.count', 1
+
+
+      # assert that the post request was successful
+      must_respond_with :success
+      body = JSON.parse(response.body)
+      body.must_include "id"
+      Hike.find(body["id"]).name.must_equal hike_data[:name]
+
+      # pull out the hikes id
+      hikeId = body["id"]
+      patch hike_path(hikeId), params: {hike: new_hike_data}
+
+
+    end
+  end # update
 end

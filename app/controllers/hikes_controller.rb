@@ -27,6 +27,18 @@ class HikesController < ApplicationController
     # )
   end # create
 
+  def update
+    # hike = Hike.find_by_id(hike_params.id)
+
+
+    # def update
+    #   @book = Book.find(params[:id])
+    #   @book.update_attributes(book_params)
+    #   @book.save
+    #   redirect_to book_path(@book)
+    # end
+  end # update
+
   private
 
   def search_params
@@ -34,6 +46,6 @@ class HikesController < ApplicationController
   end
 
   def hike_params
-    params.require(:hike).permit(:name, :start_lat, :start_lng, :region, :description, :notes, :start_date, :end_date, :miles, :elevation_gain, :max_elevation, :coast, :rivers, :lakes, :waterfalls, :fall_foliage, :wildflowers, :meadows, :mountain_views, :summits, :established_campsites, :day_hike, :overnight, :old_growth)
+    params.require(:hike).permit(:id, :name, :start_lat, :start_lng, :region, :description, :notes, :start_date, :end_date, :miles, :elevation_gain, :max_elevation, :coast, :rivers, :lakes, :waterfalls, :fall_foliage, :wildflowers, :meadows, :mountain_views, :summits, :established_campsites, :day_hike, :overnight, :old_growth)
   end # hike_params
 end
