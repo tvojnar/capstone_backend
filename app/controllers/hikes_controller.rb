@@ -28,7 +28,22 @@ class HikesController < ApplicationController
   end # create
 
   def update
-    # hike = Hike.find_by_id(hike_params.id)
+    # find the hike to update
+    hike = Hike.find(params[:id])
+
+    # update the attributes based on the params sent from the client
+    hike.update_attributes(hike_params)
+
+    # render difference json depending on if the update was sucessful or not
+    if hike.save
+      render(
+        json: {id: hike.id, name: hike.name}, status: :ok
+      )
+    else
+      render(
+        json: {errors: hike.errors.messages}, status: :bad_request
+      )
+    end
 
 
     # def update

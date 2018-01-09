@@ -2,6 +2,7 @@ require "test_helper"
 require 'pry-rails'
 
 describe HikesController do
+  # create valid hike data to use in the tests
   let(:hike_data) {
     {
       name: 'Fake hike',
@@ -9,6 +10,14 @@ describe HikesController do
       start_lng: -123,
       region: 'Central Washington',
       description: 'A great fake hike',
+    }
+  } # let
+
+  # create invalid data to pass as params (missing start_lat)
+  let(:invalid_hike_data) {
+    {
+      name: 'Invalid hike',
+      start_lng: -123,
     }
   } # let
 
@@ -101,11 +110,6 @@ describe HikesController do
     end # creates a hike
 
     it 'wont change the db if data is missing' do
-      # create invalid data to pass as params (missing start_lat)
-      invalid_hike_data = {
-          name: 'Fake hike',
-          start_lng: -123,
-        }
 
       # make a post request with the invalid data
       proc {
@@ -127,6 +131,7 @@ describe HikesController do
         start_lng: -160,
         region: 'Mount Rainier Area',
         description: 'A new discription for the hike',
+        lakes: true
       }
     } # let
 
@@ -136,6 +141,45 @@ describe HikesController do
         post hikes_path, params: {hike: hike_data}
       }.must_change 'Hike.count', 1
 
+      # assert that the post request was successful
+      must_respond_with :success
+      body = JSON.parse(response.body)
+      body.must_include "id"
+      Hike.find(body["id"]).name.must_equal hike_data[:name]
+
+      # pull out the hikes id
+      hikeId = body["id"]
+
+      # make a patch request to update the hike
+      patch hike_path(hikeId), params: {hike: new_hike_data}
+
+      # assert that the patch was a success
+      must_respond_with :success
+      body = JSON.parse(response.body)
+      body.must_include "id"
+      body.must_include "name"
+
+
+      # assert that changes were made to the hikes
+      Hike.find(body["id"]).name.must_equal new_hike_data[:name]
+      Hike.find(body["id"]).start_lat.must_equal new_hike_data[:start_lat]
+      Hike.find(body["id"]).start_lng.must_equal new_hike_data[:start_lng]
+      Hike.find(body["id"]).region.must_equal new_hike_data[:region]
+      Hike.find(body["id"]).description.must_equal new_hike_data[:description]
+      Hike.find(body["id"]).lakes.must_equal new_hike_data[:lakes]
+      Hike.find(body["id"]).coast.must_equal new_hike_data[:coast]
+    end # will update the hike's attributes
+
+    it 'will not update the hike if the data passed in the params is bad' do
+      bad_data = {
+        name: 'New Name',
+        start_lat: 'string',
+        start_lng: -123,
+      }
+      # make a post request to create a hike
+      proc {
+        post hikes_path, params: {hike: hike_data}
+      }.must_change 'Hike.count', 1
 
       # assert that the post request was successful
       must_respond_with :success
@@ -145,9 +189,46 @@ describe HikesController do
 
       # pull out the hikes id
       hikeId = body["id"]
-      patch hike_path(hikeId), params: {hike: new_hike_data}
 
+      # make a patch request to update the hike
+      patch hike_path(hikeId), params: {hike: bad_data}
 
-    end
+      # assert that the patch request failed
+      # verify that the post request failed because the start_lat was missing
+      must_respond_with :bad_request
+      body = JSON.parse(response.body)
+      body.must_equal "errors" => {"start_lat" => ["is not a number"] }
+    end # wont update with bad data
+
+    it 'will not update the hike if the data passed in the params has a blank name' do
+      bad_data = {
+        name: '',
+        start_lat: 47,
+        start_lng: -123,
+      }
+      # make a post request to create a hike
+      proc {
+        post hikes_path, params: {hike: hike_data}
+      }.must_change 'Hike.count', 1
+
+      # assert that the post request was successful
+      must_respond_with :success
+      body = JSON.parse(response.body)
+      body.must_include "id"
+      Hike.find(body["id"]).name.must_equal hike_data[:name]
+
+      # pull out the hikes id
+      hikeId = body["id"]
+
+      # make a patch request to update the hike
+      patch hike_path(hikeId), params: {hike: bad_data}
+
+      # assert that the patch request failed
+      # verify that the post request failed because the start_lat was missing
+      must_respond_with :bad_request
+      body = JSON.parse(response.body)
+      body.must_equal "errors" => {"name" => ["can't be blank"] }
+    end # wont update with bad data
+
   end # update
 end
