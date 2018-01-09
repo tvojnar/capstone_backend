@@ -44,14 +44,6 @@ class HikesController < ApplicationController
         json: {errors: hike.errors.messages}, status: :bad_request
       )
     end
-
-
-    # def update
-    #   @book = Book.find(params[:id])
-    #   @book.update_attributes(book_params)
-    #   @book.save
-    #   redirect_to book_path(@book)
-    # end
   end # update
 
   private
