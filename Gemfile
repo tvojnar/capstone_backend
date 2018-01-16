@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# to be able to generate presigned urls 
+# to be able to generate presigned urls
 gem 'aws-sdk', '~> 2'
 # gem to be able to make post request to the browser
 gem 'rack-cors', :require => 'rack/cors'
