@@ -6,14 +6,17 @@
 class ImagesController < ApplicationController
 def index
     # see this resource https://stuff-things.net/2016/03/16/uploading-from-rails-to-aws-s3-with-presigned-urls/
-    # id = ENV['AWS_ACCESS_KEY_ID']
-    # key = ENV['AWS_SECRET_ACCESS_KEY']
+    id = ENV['AWS_ACCESS_KEY_ID']
+    key = ENV['AWS_SECRET_ACCESS_KEY']
     # credentials = Aws::Credentials.new('ID', 'KEY')
-    credentials = Aws::Credentials.new('AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY')
-    # binding.pry
-    s3_resource = Aws::S3::Resource::new(region: 'us-west-2', credentials: credentials, )
-    # s3_resource = Aws::S3::Resource::new(region: 'us-west-2', credentials: Aws::Credentials.new('access-key-id', 'secret-access-key'))
+    # credentials = Aws::Credentials.new('AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY')
+    credentials = Aws::Credentials.new(id, key)
+
+    s3_resource = Aws::S3::Resource.new(region: 'us-west-2', credentials: credentials, )
+  #   s3_resource = Aws::S3::Resource::new(region: 'us-west-2',   access_key_id: id,
+  # secret_access_key: key)
     # s3_resource = Aws::S3::Resource::new(region: 'us-west-2')
+    # binding.pry
     # pull out the file name from params
     # extension = File.extname(params[:filename])
     extension = params[:filename]
