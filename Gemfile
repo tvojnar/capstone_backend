@@ -7,6 +7,7 @@ end
 
 # to be able to generate presigned urls
 gem 'aws-sdk', '~> 2'
+# gem 'aws-sdk'
 # gem to be able to make post request to the browser
 gem 'rack-cors', :require => 'rack/cors'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
