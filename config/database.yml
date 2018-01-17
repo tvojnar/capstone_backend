@@ -78,8 +78,19 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
 production:
   <<: *default
-  database: capstone_backend_production
-  username: capstone_backend
-  password: <%= ENV['CAPSTONE_BACKEND_DATABASE_PASSWORD'] %>
+  database: <%= ENV['RDS_DB_NAME'] %>
+  username: <%= ENV['RDS_USERNAME'] %>
+  password: <%= ENV['RDS_PASSWORD'] %>
+  host: <%= ENV['RDS_HOSTNAME'] %>
+  port: <%= ENV['RDS_PORT'] %>
+  
+
+# NOTE: below is old production stuff
+# production:
+#   <<: *default
+#   database: capstone_backend_production
+#   username: capstone_backend
+#   password: <%= ENV['CAPSTONE_BACKEND_DATABASE_PASSWORD'] %>
