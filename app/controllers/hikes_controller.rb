@@ -1,8 +1,8 @@
-require 'pry-rails'
+
 
 class HikesController < ApplicationController
   # protect_from_forgery with: :null_session
-  
+
   def index
     hikes = Hike.search(search_params.to_h.symbolize_keys)
     # binding.pry
