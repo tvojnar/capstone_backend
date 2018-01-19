@@ -4,7 +4,7 @@ require 'pry-rails'
 describe ImagesController do
   describe 'index' do
     it 'will return a url' do
-      # test that the index action returns a url
+      # test that the index action returns a url 
       get images_path(filename: 'testfilename')
       must_respond_with :success
       body = JSON.parse(response.body)

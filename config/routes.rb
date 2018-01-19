@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   # for now just have an index action, but later I will add show, create, edit, update actions as well
   scope :api do
     resources :hikes, only: [:index, :create, :update, :show]
+    resources :images, only: [:index, :create]
   end
 end
