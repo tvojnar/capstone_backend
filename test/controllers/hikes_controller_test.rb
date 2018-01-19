@@ -165,7 +165,8 @@ describe HikesController do
         start_lng: -160,
         region: 'Mount Rainier Area',
         description: 'A new discription for the hike',
-        lakes: true
+        lakes: true,
+        image_url: "test_url_for_image"
       }
     } # let
 
@@ -202,6 +203,8 @@ describe HikesController do
       Hike.find(body["id"]).description.must_equal new_hike_data[:description]
       Hike.find(body["id"]).lakes.must_equal new_hike_data[:lakes]
       Hike.find(body["id"]).coast.must_equal new_hike_data[:coast]
+      Hike.find(body["id"]).image_url.must_equal new_hike_data[:image_url]
+
     end # will update the hike's attributes
 
     it 'will not update the hike if the data passed in the params is bad' do
