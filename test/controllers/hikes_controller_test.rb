@@ -10,6 +10,7 @@ describe HikesController do
       start_lng: -123,
       region: 'Central Washington',
       description: 'A great fake hike',
+      image_url: 'a_test_url',
     }
   } # let
 
@@ -141,6 +142,7 @@ describe HikesController do
       body.must_be_kind_of Hash
       body.must_include "name"
       Hike.find(body["id"]).name.must_equal hike_data[:name]
+      Hike.find(body["id"]).image_url.must_equal hike_data[:image_url]
     end # creates a hike
 
     it 'wont change the db if data is missing' do
