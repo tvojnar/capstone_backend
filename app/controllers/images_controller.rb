@@ -35,6 +35,5 @@ def index
     # presigned_url = object.presigned_url(:put)
     presigned_url = object.presigned_url(:put, content_type: params[:content_type], expires_in: 5.minutes.to_i, acl: 'public-read')
     render json: {url: presigned_url }, status: :ok
-    binding.pry
   end
 end
