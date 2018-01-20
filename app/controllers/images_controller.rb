@@ -33,7 +33,8 @@ def index
     object = s3_resource.bucket('tv-capstone').object(filename)
     # get the url to pass to the client
     # presigned_url = object.presigned_url(:put)
-    presigned_url = object.presigned_url(:put, content_type: params[:content_type], expires_in: 5.minutes.to_i, acl: 'public-read')
-    render json: {url: presigned_url }, status: :ok
+    presigned_url = object.presigned_url(:put, content_type: params[:content_type], expires_in: 10.minutes.to_i, acl: 'public-read')
+    render json: {url: presigned_url, fileName: filename }, status: :ok
+    # binding.pry
   end
 end
