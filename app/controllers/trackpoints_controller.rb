@@ -17,6 +17,7 @@ class TrackpointsController < ApplicationController
     # )
 
     # with zac
+    # doc = Nokogiri::XML(trackpoint_params)
     # points = doc.search('trkpt')
     # will output all of the lats
     # points.each { |pt| puts pt.attr("lat") }
