@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   scope :api do
     resources :hikes, only: [:index, :create, :update, :show]
     resources :images, only: [:index, :create]
+    resources :trackpoints, only: [:show, :create]
   end
 end

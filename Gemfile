@@ -5,6 +5,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+# to parse gpx files
+gem 'nokogiri';
+# to make the environmental variables in .env accessible
 gem 'dotenv-rails'
 # to be able to generate presigned urls
 gem 'aws-sdk', '~> 2'
