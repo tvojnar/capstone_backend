@@ -22,7 +22,7 @@ class HikesController < ApplicationController
 
     # make an array that is [lat, lng] for each trackpoint and push the array into the trackpoint_array
     hike_trackpoints.each do |tp|
-      tp_array = [tp.lat, tp.lng]
+      tp_array = {lat: tp.lat, lng: tp.lng}
       trackpoint_array << tp_array
     end # .each
 
