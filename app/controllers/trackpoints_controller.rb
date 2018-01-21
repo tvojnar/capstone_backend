@@ -21,8 +21,10 @@ class TrackpointsController < ApplicationController
 
     # create a new trackpoint for each trkpt in points
     points.each do |pt|
-      trackpoint = Trackpoint.new(trackpoint_num: id_for_trkpt, lat: pt.attr("lat"), lng: pt.attr('lon'))
+      trackpoint = Trackpoint.new(trackpoint_num: id_for_trkpt, lat: pt.attr("lat"), lng: pt.attr('lon'), hike_id: id_of_hike)
       trackpoint.save
+      puts trackpoint
+      puts trackpoint.errors.full_messages
       id_for_trkpt += 1
     end # .each
 
@@ -34,6 +36,7 @@ class TrackpointsController < ApplicationController
     # render(
     #   json: {trackpoints: points}
     # )
+    #Hike.find_by(id: 90).trackpoints
 
     # with zac
     # doc = Nokogiri::XML(trackpoint_params)
