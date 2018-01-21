@@ -104,14 +104,15 @@ describe HikesController do
       must_respond_with :success
       # confirm that the correct hike's data was retuned
       body = JSON.parse(response.body)
+          binding.pry
       body.must_be_kind_of Hash
-      Hike.find(body["id"]).name.must_equal hikes(:one).name
+      Hike.find(body["hike_data"]["id"]).name.must_equal hikes(:one).name
       # confirm that all the nessessary data was returned
       attributes = ['id',
         'name',
          'start_lat', 'start_lng', 'region', 'start_date', 'end_date', 'max_elevation', 'elevation_gain', 'description', 'notes', 'lakes', 'coast', 'rivers', 'waterfalls', 'fall_foliage', 'wildflowers', 'meadows', 'old_growth', 'mountain_views', 'summits', 'established_campsites', 'day_hike', 'overnight']
       attributes.each do |attribute|
-        body.must_include attribute
+        body["hike_data"].must_include attribute
       end # .each
     end # returns a hike
 

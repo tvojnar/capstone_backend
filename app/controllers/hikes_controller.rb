@@ -15,7 +15,7 @@ class HikesController < ApplicationController
 
     if hike
       render(
-        json: hike.as_json(except: [:created_at, :updated_at]), status: :ok
+        json: {hike_data: hike.as_json(except: [:created_at, :updated_at])}, status: :ok
       )
     else
       render(

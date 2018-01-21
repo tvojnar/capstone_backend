@@ -50,11 +50,11 @@ class TrackpointsController < ApplicationController
 
     if num_trkpt == num_of_points
       render(
-        json: {message: 'all trackpoints were sucessfully uploaded ', trackpoint_num: num_trkpt}, status: :ok
+        json: {status: 'all', message: 'all trackpoints were sucessfully uploaded ', trackpoint_num: num_trkpt}, status: :ok
       )
     else
       render(
-        json: {error: 'not all of the strackpoints were uploaded'}, status: :bad_request
+        json: {status: 'not all', error: 'not all of the strackpoints were uploaded'}, status: :bad_request
       )
     end # if/else
   end # create
