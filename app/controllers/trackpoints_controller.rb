@@ -15,6 +15,7 @@ class TrackpointsController < ApplicationController
     # get all of the trackpoints (which have lat and lng as attributes) out of the xml that was sent via params from the ajax POST on the frontend
     doc = Nokogiri::XML(trackpoint_params)
     points = doc.search('trkpt')
+    num_of_points = points.count
 
     # start off with an id of 0 to set for the trackpoint_number
     id_for_trkpt = 0
@@ -45,10 +46,17 @@ class TrackpointsController < ApplicationController
     # points.each { |pt| puts pt.attr("lat") }
     # will output all of the lats and lngs
     # points.each { |pt| puts " #{pt.attr('lat')}, #{pt.attr('lon')} " }
-    num_trkpt = Trackpoint.count
-    render(
-      json: {worked: 'yes', trackpoint_num: num_trkpt}
-    )
+    num_trkpt = Hike.find_by(id: id_of_hike).trackpoints.count
+
+    if num_trkpt == num_of_points
+      render(
+        json: {message: 'all trackpoints were sucessfully uploaded ', trackpoint_num: num_trkpt}, status: :ok
+      )
+    else
+      render(
+        json: {error: 'not all of the strackpoints were uploaded'}, status: :bad_request
+      )
+    end # if/else
   end # create
 
   private
