@@ -13,9 +13,17 @@ class HikesController < ApplicationController
   def show
     hike = Hike.find_by(id: params[:id])
 
+    hike_trackpoints = hike.trackpoints
+    trackpoint_array = []
+
+    hike_trackpoints.each do |tp|
+      tp_array = [tp.lat, tp.lng]
+      trackpoint_array << tp_array
+    end # .each
+    binding.pry
     if hike
       render(
-        json: {hike_data: hike.as_json(except: [:created_at, :updated_at])}, status: :ok
+        json: {hike_data: hike.as_json(except: [:created_at, :updated_at]), trackpoints: trackpoint_array }, status: :ok
       )
     else
       render(
