@@ -20,16 +20,22 @@ class HikesController < ApplicationController
       tp_array = [tp.lat, tp.lng]
       trackpoint_array << tp_array
     end # .each
-    binding.pry
+
     if hike
-      render(
-        json: {hike_data: hike.as_json(except: [:created_at, :updated_at]), trackpoints: trackpoint_array }, status: :ok
-      )
+      if trackpoint_array.length > 0
+        render(
+          json: {hike_data: hike.as_json(except: [:created_at, :updated_at]), trackpoints: trackpoint_array }, status: :ok
+        )
+      elsif trackpoint_array.length <= 0
+        render(
+          json: {hike_data: hike.as_json(except: [:created_at, :updated_at])}, status: :ok
+        )
+      end # inner if
     else
       render(
         json: {nothing: true}, status: :not_found
       )
-    end # if/else
+    end # outer if/else
   end # show
 
   def create
