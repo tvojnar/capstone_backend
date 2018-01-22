@@ -1,6 +1,6 @@
 class Hike < ApplicationRecord
   # database relationships:
-  has_many :trackpoints
+  has_many :trackpoints, :dependent => :delete_all
   has_many :waypoints
   has_many :points
 

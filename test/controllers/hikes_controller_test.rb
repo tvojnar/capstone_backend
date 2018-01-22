@@ -104,7 +104,6 @@ describe HikesController do
       must_respond_with :success
       # confirm that the correct hike's data was retuned
       body = JSON.parse(response.body)
-          binding.pry
       body.must_be_kind_of Hash
       Hike.find(body["hike_data"]["id"]).name.must_equal hikes(:one).name
       # confirm that all the nessessary data was returned
@@ -268,7 +267,57 @@ describe HikesController do
       must_respond_with :bad_request
       body = JSON.parse(response.body)
       body.must_equal "errors" => {"name" => ["can't be blank"] }
-    end # wont update with bad data
-
+    end # wont update with bad data]
   end # update
+
+
+  describe 'destroy' do
+    it "will destroy a hike and all of it's trackpoint if it exists" do
+      # ARANGE
+      # pull out a hike to delete
+      hike = hikes(:one);
+      # create two trackpoints for that hike
+      trkpt = Trackpoint.create!(hike_id: hike.id, lat: 45, lng: -123)
+      trkpt2 = Trackpoint.create!(hike_id: hike.id, lat: 46, lng: -123)
+
+      # establish the number of trackpoints 'hike' has as well as the total number of trackpoints in the db
+      hike_trkpt = hike.trackpoints.count
+      num_trkpts = Trackpoint.count
+
+      #ACT
+      # delete 'hike'
+      # make sure that the number of Hikes decreases by 1
+      proc {
+        delete hike_path(hike.id)
+      }.must_change 'Hike.count', -1
+
+      # ASSERT
+      # make sure that the controller action responds with success
+      must_respond_with :success
+
+      # make sure that all of 'hikes' trackpoints were also deleted
+      Trackpoint.count.must_equal num_trkpts - hike_trkpt
+    end # distroys hike
+
+    it "won't destroy the hike if it does not exist" do
+      # ARANGE
+      # get a a hike id that does not exist
+      hike_id = Hike.last.id + 1
+
+
+      #ACT
+      # try to delete the nonexistant hike
+      # make sure that the number of Hikes does not change
+      proc {
+        delete hike_path(hike_id)
+      }.wont_change 'Hike.count'
+
+      # ASSERT
+      # make sure that the controller action responds with bad_request
+      must_respond_with :bad_request
+    end # won't distroy if not existant
+
+
+
+  end # destroy
 end
