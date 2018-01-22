@@ -11,17 +11,39 @@ class HikesController < ApplicationController
   end # index
 
   def show
+    # find the hike using the id params passed from the frontend
     hike = Hike.find_by(id: params[:id])
 
+    # get all the trackpoints that are associated with that hike
+    hike_trackpoints = hike.trackpoints
+
+    # create an empty array to store the lat and lng array for each trackpoint
+    trackpoint_array = []
+
+    # make an hash that is {lat: lat_value, lng: lng_value} for each trackpoint and push the array into the trackpoint_array
+    hike_trackpoints.each do |tp|
+      tp_array = {lat: tp.lat, lng: tp.lng}
+      trackpoint_array << tp_array
+    end # .each
+
+    # if the hike exists then always send the hike's attributes back to the user as the value of the hike_data key
     if hike
-      render(
-        json: hike.as_json(except: [:created_at, :updated_at]), status: :ok
-      )
+        # if the hike has trackpoints associated with it then also send the trackpoint_array to the user as the value for the trackpoints key
+      if trackpoint_array.length > 0
+        render(
+          json: {hike_data: hike.as_json(except: [:created_at, :updated_at]), trackpoints: trackpoint_array }, status: :ok
+        )
+      elsif trackpoint_array.length <= 0
+        render(
+          json: {hike_data: hike.as_json(except: [:created_at, :updated_at])}, status: :ok
+        )
+      end # inner if
+      # if the hike does not exist then send a not_found status to the user
     else
       render(
         json: {nothing: true}, status: :not_found
       )
-    end # if/else
+    end # outer if/else
   end # show
 
   def create
