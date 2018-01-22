@@ -20,7 +20,7 @@ class HikesController < ApplicationController
     # create an empty array to store the lat and lng array for each trackpoint
     trackpoint_array = []
 
-    # make an array that is [lat, lng] for each trackpoint and push the array into the trackpoint_array
+    # make an hash that is {lat: lat_value, lng: lng_value} for each trackpoint and push the array into the trackpoint_array
     hike_trackpoints.each do |tp|
       tp_array = {lat: tp.lat, lng: tp.lng}
       trackpoint_array << tp_array
