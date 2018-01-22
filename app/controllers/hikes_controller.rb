@@ -28,7 +28,7 @@ class HikesController < ApplicationController
         tp_array = {lat: tp.lat, lng: tp.lng}
         trackpoint_array << tp_array
       end # .each
-      
+
         # if the hike has trackpoints associated with it then also send the trackpoint_array to the user as the value for the trackpoints key
       if trackpoint_array.length > 0
 
@@ -87,6 +87,17 @@ class HikesController < ApplicationController
   end # update
 
   def destroy
+    hike = Hike.find_by(id: params[:id])
+    if hike
+      hike.destroy
+      render(
+        json: {message: 'Hike deleted', id: hike.id}, status: :ok
+      )
+    else
+      render(
+        json: {error: 'Hike does not exist'}, status: :bad_request
+      )
+    end # if/else what to render
   end # destroy
 
   private

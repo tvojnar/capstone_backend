@@ -273,12 +273,31 @@ describe HikesController do
 
   describe 'destroy' do
     it "will destroy a hike and all of it's trackpoint if it exists" do
+      # ARANGE
+      # pull out a hike to delete
       hike = hikes(:one);
+      # create two trackpoints for that hike
+      trkpt = Trackpoint.create!(hike_id: hike.id, lat: 45, lng: -123)
+      trkpt2 = Trackpoint.create!(hike_id: hike.id, lat: 46, lng: -123)
 
-      destroy hikes_path(hike.id)
+      # establish the number of trackpoints 'hike' has as well as the total number of trackpoints in the db
+      hike_trkpt = hike.trackpoints.count
+      num_trkpts = Trackpoint.count
 
+      #ACT
+      # delete 'hike'
+      # make sure that the number of Hikes decreases by 1
+      proc {
+        delete hike_path(hike.id)
+      }.must_change 'Hike.count', -1
+
+      # ASSERT
+      # make sure that the controller action responds with success
       must_respond_with :success
-      # TODO: also test that all trackpoints are destroyed
+      binding.pry
+      # make sure that all of 'hikes' trackpoints were also deleted
+      Trackpoint.count.must_equal num_trkpts - hike_trkpt
+
     end # distroys hike
 
     it "won't destroy the hike if it does not exist" do
