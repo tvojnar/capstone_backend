@@ -294,14 +294,27 @@ describe HikesController do
       # ASSERT
       # make sure that the controller action responds with success
       must_respond_with :success
-      binding.pry
+
       # make sure that all of 'hikes' trackpoints were also deleted
       Trackpoint.count.must_equal num_trkpts - hike_trkpt
-
     end # distroys hike
 
     it "won't destroy the hike if it does not exist" do
-      # TODO
+      # ARANGE
+      # get a a hike id that does not exist
+      hike_id = Hike.last.id + 1
+
+
+      #ACT
+      # try to delete the nonexistant hike
+      # make sure that the number of Hikes does not change
+      proc {
+        delete hike_path(hike_id)
+      }.wont_change 'Hike.count'
+
+      # ASSERT
+      # make sure that the controller action responds with bad_request
+      must_respond_with :bad_request
     end # won't distroy if not existant
 
 
