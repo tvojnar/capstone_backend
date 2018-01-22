@@ -104,7 +104,6 @@ describe HikesController do
       must_respond_with :success
       # confirm that the correct hike's data was retuned
       body = JSON.parse(response.body)
-          binding.pry
       body.must_be_kind_of Hash
       Hike.find(body["hike_data"]["id"]).name.must_equal hikes(:one).name
       # confirm that all the nessessary data was returned
@@ -268,7 +267,25 @@ describe HikesController do
       must_respond_with :bad_request
       body = JSON.parse(response.body)
       body.must_equal "errors" => {"name" => ["can't be blank"] }
-    end # wont update with bad data
-
+    end # wont update with bad data]
   end # update
+
+
+  describe 'destroy' do
+    it "will destroy a hike and all of it's trackpoint if it exists" do
+      hike = hikes(:one);
+
+      destroy hikes_path(hike.id)
+
+      must_respond_with :success
+      # TODO: also test that all trackpoints are destroyed
+    end # distroys hike
+
+    it "won't destroy the hike if it does not exist" do
+      # TODO
+    end # won't distroy if not existant
+
+
+
+  end # destroy
 end
