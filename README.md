@@ -1,24 +1,14 @@
-# README
+# ScrappyHiker
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Main features 
 
-Things you may want to cover:
+## Architecture
 
-* Ruby version
+## Demo 
+Checkout the [live site](http://scrappyhiker.com/) or [video demo](https://drive.google.com/file/d/1-zdlxIL19-GJ7iM7DcEHGD2HEgXDasv9/view) of ScrappyHiker! 
 
-* System dependencies
+## Technologies 
 
-* Configuration
+## What I learned 
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Improvements 
