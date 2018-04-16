@@ -5,7 +5,7 @@ However, sometimes I find it hard to keep track of where I have been, and I find
   
 So, for my capstone project at Ada Developers Academy I built a web app called ScrappyHiker that allows users to keep track of all of the hikes they have been on, and any details about them that they don’t want to forget! In addition you can upload a GPX track for any hike that you have added to ScrappyHilker.   
 
-[Image of ScrappyHiker](https://drive.google.com/file/d/1DIXQExlsrmobLnxvGPA3Oy-JMcvOcwFJ/view?usp=sharing)
+[Image of ScrappyHiker](https://ibb.co/gTLxcS)
   
 ## Main features 
 1. Visual representation of your hiking history on a map
