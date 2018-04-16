@@ -4,8 +4,6 @@ Like many people in the Pacific Northwest I love to go hiking and backpacking, w
 However, sometimes I find it hard to keep track of where I have been, and I find myself asking questions such as “What was the name of that hike I went on last July?”, or “Which hikes have I done on the Olympic Peninsula?”.   
   
 So, for my capstone project at Ada Developers Academy I built a web app called ScrappyHiker that allows users to keep track of all of the hikes they have been on, and any details about them that they don’t want to forget! In addition you can upload a GPX track for any hike that you have added to ScrappyHilker.   
-
-![Image of ScrappyHiker](https://s7.postimg.cc/wcccmdh23/scrappy_Hiker_Screen_Shot.png)
   
 ## Main features 
 1. Visual representation of your hiking history on a map
